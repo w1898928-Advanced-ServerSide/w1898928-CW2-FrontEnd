@@ -180,14 +180,43 @@ select {
 }
 
 .auth-form {
-    max-width: 500px;
+    max-width: 200px;
     margin: 0 auto;
-    padding: 150px;
+    padding: 120px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
+}
+
+.login {
+    background-color: #007bff;
+    color: white;
+    width: 150px;
+    padding: 12px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.login:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.login:active {
+    background-color: #003d80;
+    transform: scale(0.97);
 }
 
 .auth-wrapper {
@@ -200,7 +229,9 @@ select {
 
 .auth-form h2 {
     text-align: center;
+    margin-top: -10px;
     margin-bottom: 40px;
+    font-size: 35px;
     color: #0077cc;
 }
 

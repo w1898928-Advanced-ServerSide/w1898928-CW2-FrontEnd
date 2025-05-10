@@ -42,7 +42,11 @@ const RegisterPage = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Register</button>
+        <div className="login-wrapper">
+          <button className="login" type="submit">
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -32,7 +32,11 @@ const LoginPage = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>
+        <div className="login-wrapper">
+          <button className="login" type="submit">
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );

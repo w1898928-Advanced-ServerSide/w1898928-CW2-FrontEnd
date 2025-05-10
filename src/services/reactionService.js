@@ -1,31 +1,23 @@
-import api from './api';
+const API = 'http://localhost:4000/api/reactions';
 
-export const addReaction = async (userId, postId, reactionType) => {
-  const response = await api.post(`/reactions/${postId}/${reactionType}`);
-  return response.data;
-};
+export const reactionService = {
+  getReactionsForPost: async (postId) => {
+    const res = await fetch(`${API}/post/${postId}`);
+    return await res.json();
+  },
 
-export const removeReaction = async (userId, postId) => {
-  const response = await api.delete(`/reactions/${postId}`);
-  return response.data;
-};
+  getUserReaction: async (postId) => {
+    const res = await fetch(`${API}/user/${postId}`, {
+      credentials: 'include'
+    });
+    return await res.json();
+  },
 
-export const getReactionsForPost = async (postId) => {
-  const response = await api.get(`/reactions/post/${postId}`);
-  return response.data;
-};
-
-export const getUserReaction = async (userId, postId) => {
-  const response = await api.get(`/reactions/user/${postId}`);
-  return response.data;
-};
-
-export const getMostLikedPosts = async (limit = 5) => {
-  const response = await api.get('/reactions/trending', { params: { limit } });
-  return response.data;
-};
-
-export const toggleReaction = async (userId, postId, reactionType) => {
-  const response = await api.post(`/reactions/${postId}/${reactionType}`);
-  return response.data;
+  toggleReaction: async (postId, type) => {
+    const res = await fetch(`${API}/${postId}/${type}`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+    return await res.json();
+  }
 };

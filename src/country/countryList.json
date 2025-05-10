@@ -1,0 +1,27 @@
+[
+    {
+      "name": "United Kingdom",
+      "flag": "https://flagcdn.com/gb.svg",
+      "currency": "GBP",
+      "capital": "London"
+    },
+    {
+      "name": "Sri Lanka",
+      "flag": "https://flagcdn.com/lk.svg",
+      "currency": "LKR",
+      "capital": "Colombo"
+    },
+    {
+      "name": "Japan",
+      "flag": "https://flagcdn.com/jp.svg",
+      "currency": "JPY",
+      "capital": "Tokyo"
+    },
+    {
+      "name": "France",
+      "flag": "https://flagcdn.com/fr.svg",
+      "currency": "EUR",
+      "capital": "Paris"
+    }
+  ]
+  

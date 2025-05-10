@@ -1,21 +1,38 @@
-import api from './api';
+const API = 'http://localhost:4000/api/auth';
 
-export const login = async (username, password) => {
-  const response = await api.post('/auth/login', { username, password });
-  return response.data;
-};
+export const authService = {
+  login: async (username, password) => {
+    const res = await fetch(`${API}/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    return await res.json();
+  },
 
-export const register = async (username, email, password) => {
-  const response = await api.post('/auth/register', { username, email, password });
-  return response.data;
-};
+  register: async (username, email, password) => {
+    const res = await fetch(`${API}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password }),
+    });
+    return await res.json();
+  },
 
-export const logout = async () => {
-  const response = await api.post('/auth/logout');
-  return response.data;
-};
+  getCurrentUser: async () => {
+    const res = await fetch(`${API}/me`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    return await res.json();
+  },
 
-export const getCurrentUser = async () => {
-  const response = await api.get('/auth/me');
-  return response.data.user;
+  logout: async () => {
+    const res = await fetch(`${API}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+    return await res.json();
+  }
 };

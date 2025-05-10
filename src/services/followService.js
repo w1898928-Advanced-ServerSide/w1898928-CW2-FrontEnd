@@ -1,36 +1,49 @@
-import api from './api';
+const API = 'http://localhost:4000/api/follow';
 
-export const followUser = async (followerId, followingId) => {
-  const response = await api.post(`/follow/${followingId}`, { followerId });
-  return response.data;
-};
+export const followService = {
+  followUser: async (userId) => {
+    const res = await fetch(`${API}/${userId}`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+    return await res.json();
+  },
 
-export const unfollowUser = async (followerId, followingId) => {
-  const response = await api.delete(`/follow/${followingId}`);
-  return response.data;
-};
+  unfollowUser: async (userId) => {
+    const res = await fetch(`${API}/${userId}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+    return await res.json();
+  },
 
-export const getFollowers = async (userId) => {
-  const response = await api.get(`/follow/followers/${userId}`);
-  return response.data;
-};
+  isFollowing: async (userId) => {
+    const res = await fetch(`${API}/is-following/${userId}`, {
+      credentials: 'include'
+    });
+    return await res.json();
+  },
 
-export const getFollowing = async (userId) => {
-  const response = await api.get(`/follow/following/${userId}`);
-  return response.data;
-};
+  getFollowers: async (userId) => {
+    const res = await fetch(`${API}/followers/${userId}`);
+    return await res.json();
+  },
 
-export const isFollowing = async (followerId, followingId) => {
-  const response = await api.get(`/follow/is-following/${followingId}`);
-  return response.data;
-};
+  getFollowing: async (userId) => {
+    const res = await fetch(`${API}/following/${userId}`);
+    return await res.json();
+  },
 
-export const getFollowCounts = async (userId) => {
-  const response = await api.get(`/follow/counts/${userId}`);
-  return response.data;
-};
+  getSuggestions: async (userId) => {
+    const res = await fetch(`${API}/suggestions`, {
+      credentials: 'include'
+    });
+    return await res.json();
+  },
 
-export const getFollowSuggestions = async (userId, limit = 5) => {
-  const response = await api.get('/follow/suggestions', { params: { limit } });
-  return response.data;
+  getFollowCounts: async (userId) => {
+    const res = await fetch(`http://localhost:4000/api/follow/counts/${userId}`);
+    return await res.json();
+  },
+  
 };

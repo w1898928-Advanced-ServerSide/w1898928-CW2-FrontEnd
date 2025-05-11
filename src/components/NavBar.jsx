@@ -24,7 +24,17 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link to="/" className="logo" onClick={closeMenu}>
-        🌍 TravelTales
+        <span
+          className="material-icons"
+          style={{
+            fontSize: "30px",
+            verticalAlign: "middle",
+            marginRight: "8px",
+          }}
+        >
+          travel_explore
+        </span>
+        TravelTales
       </Link>
 
       <button className="hamburger" onClick={toggleMenu}>

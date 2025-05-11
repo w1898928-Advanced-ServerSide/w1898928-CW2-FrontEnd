@@ -126,20 +126,42 @@ const PostCard = ({ post, isProfile = false }) => {
           onClick={(e) => handleReaction("like", e)}
           className={userReaction === "like" ? "active-reaction" : ""}
         >
-          👍 {likes}
+          <span
+            className="material-icons"
+            style={{ color: userReaction === "like" ? "#dc354" : "#66" }}
+          >
+            thumb_up
+          </span>{" "}
+          {likes}
         </button>
         <button
           onClick={(e) => handleReaction("dislike", e)}
           className={userReaction === "dislike" ? "active-reaction" : ""}
         >
-          👎 {dislikes}
+          <span
+            className="material-icons"
+            style={{ color: userReaction === "dislike" ? "#dc354" : "#66" }}
+          >
+            thumb_down
+          </span>{" "}
+          {dislikes}
         </button>
       </div>
 
       {isOwner && (
         <div className="post-actions">
-          <button onClick={handleEdit}>✏️ Edit</button>
-          <button onClick={handleDelete}>🗑️ Delete</button>
+          <button onClick={handleEdit}>
+            <span className="material-icons" style={{ marginRight: "5px" }}>
+              edit
+            </span>
+            Edit
+          </button>
+          <button onClick={handleDelete}>
+            <span className="material-icons" style={{ marginRight: "5px" }}>
+              delete
+            </span>
+            Delete
+          </button>
         </div>
       )}
     </div>

@@ -48,7 +48,21 @@ const DashboardPage = () => {
         </a>
       </p>
 
-      <h3>Your Blog Posts ✍️</h3>
+      <h3>
+        <span
+          className="material-icons"
+          style={{
+            fontSize: "35px",
+            color: "#0077cc",
+            verticalAlign: "middle",
+            marginRight: "8px",
+          }}
+        >
+          article
+        </span>
+        Your Blog Posts
+      </h3>
+
       {posts.length === 0 ? (
         <p>You haven't created any posts yet.</p>
       ) : (
@@ -56,7 +70,6 @@ const DashboardPage = () => {
           <PostCard key={post.blogPostId} post={post} isProfile={true} />
         ))
       )}
-
     </div>
   );
 };

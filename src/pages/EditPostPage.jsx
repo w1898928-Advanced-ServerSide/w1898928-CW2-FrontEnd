@@ -96,7 +96,12 @@ const EditPostPage = () => {
         />
         <input type="file" accept="image/*" onChange={handleImageChange} />
         {preview && <img src={preview} alt="preview" className="preview-img" />}
-        <button type="submit">Save Changes</button>
+
+        <div className="submit-wrapper" style={{ marginTop: "12px" }}>
+          <button className="submit" type="submit">
+            Save Changes
+          </button>
+        </div>
       </form>
     </div>
   );

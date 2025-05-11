@@ -59,7 +59,21 @@ const CreatePostPage = () => {
 
   return (
     <div className="create-post-form">
-      <h2>Create New Blog Post ✍️</h2>
+      <h2>
+        <span
+          className="material-icons"
+          style={{
+            fontSize: "45px",
+            color: "#0077cc",
+            verticalAlign: "middle",
+            marginRight: "10px",
+          }}
+        >
+          edit_note
+        </span>
+        Create New Blog Post
+      </h2>
+
       <form onSubmit={handleSubmit}>
         <input
           value={title}

@@ -20,7 +20,19 @@ const SearchPage = () => {
 
   return (
     <div className="dashboard">
-      <h2>Search TravelTales 🌍</h2>
+      <h2>
+        <span
+          className="material-icons"
+          style={{
+            fontSize: "40px",
+            verticalAlign: "middle",
+            marginRight: "15px",
+          }}
+        >
+          travel_explore
+        </span>
+        Search TravelTales
+      </h2>
 
       <form onSubmit={handleSearch} className="search-form">
         <input

@@ -42,7 +42,7 @@ export const followService = {
   },
 
   getFollowCounts: async (userId) => {
-    const res = await fetch(`http://localhost:4000/api/follow/counts/${userId}`);
+    const res = await fetch(`${API}/counts/${userId}`);
     return await res.json();
   },
   

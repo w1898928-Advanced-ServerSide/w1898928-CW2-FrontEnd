@@ -1,47 +1,58 @@
-const API_BASE = 'http://localhost:4000/api/posts';
+import { Post } from "../dtos/PostDto";
+
+const API_BASE = "http://localhost:4000/api/posts";
 
 export const postService = {
   getAllPosts: async () => {
     const res = await fetch(API_BASE);
-    return await res.json();
+    const result = await res.json();
+    if (result.success) {
+      return {
+        success: true,
+        data: result.data.map(post => new Post(post))
+      };
+    }
+    return result;
   },
 
-  createPost: async (title, content, country, dateOfVisit, coverImage) => {
-    const res = await fetch("http://localhost:4000/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify({ title, content, country, dateOfVisit, coverImage })
-    });
-  
-    return await res.json();
-  },
-
-  getPostById: async (postId) => {
-    const res = await fetch(`${API_BASE}/${postId}`);
-    return await res.json();
-  },
-
-  updatePost: async (id, title, content, country, dateOfVisit, coverImage) => {
-    const res = await fetch(`${API_BASE}/${id}`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, content, country, dateOfVisit, coverImage }),
-    });
-    return await res.json();
+  getPostById: async (id) => {
+    const res = await fetch(`${API_BASE}/${id}`);
+    const result = await res.json();
+    if (result.success) {
+      return {
+        success: true,
+        data: new Post(result.data)
+      };
+    }
+    return result;
   },
 
   getPostsByUserId: async (userId) => {
-    const res = await fetch(`http://localhost:4000/api/posts/user/${userId}`);
-    return await res.json();
+    const res = await fetch(`${API_BASE}/user/${userId}`);
+    const result = await res.json();
+    if (result.success) {
+      return {
+        success: true,
+        data: result.data.map(post => new Post(post))
+      };
+    }
+    return result;
   },
-  
-  searchPosts: async (term) => {
-    const res = await fetch(`http://localhost:4000/api/posts/search/${encodeURIComponent(term)}`);
+
+  createPost: async (title, content, country, dateOfVisit, coverImage) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("country", country);
+    formData.append("dateOfVisit", dateOfVisit);
+    if (coverImage) formData.append("coverImage", coverImage);
+
+    const res = await fetch(API_BASE, {
+      method: "POST",
+      credentials: "include",
+      body: formData
+    });
+
     return await res.json();
   }
-
 };

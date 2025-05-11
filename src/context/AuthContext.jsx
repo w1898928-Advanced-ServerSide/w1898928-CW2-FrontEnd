@@ -5,11 +5,21 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // to avoid flicker
 
   useEffect(() => {
-    authService.getCurrentUser().then((res) => {
-      if (res.user) setUser(res.user);
-    });
+    const checkSession = async () => {
+      try {
+        const res = await authService.getCurrentUser();
+        if (res.user) setUser(res.user);
+      } catch (err) {
+        setUser(null); // silently fail if session is invalid
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkSession();
   }, []);
 
   const login = async (username, password) => {
@@ -25,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

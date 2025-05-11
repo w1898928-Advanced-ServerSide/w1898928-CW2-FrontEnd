@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { postService } from "../services/postService";
 import countryList from "../country/countryList.json";
 
 const CreatePostPage = () => {
@@ -12,7 +11,7 @@ const CreatePostPage = () => {
   const [content, setContent] = useState("");
   const [country, setCountry] = useState("");
   const [dateOfVisit, setDateOfVisit] = useState("");
-  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
@@ -21,27 +20,38 @@ const CreatePostPage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+    setImageFile(file);
     setPreview(URL.createObjectURL(file));
-
-    const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result);
-    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await postService.createPost(
-      title,
-      content,
-      country,
-      dateOfVisit,
-      image
-    );
-    if (result.success) {
-      alert("Post created successfully!");
-      nav("/dashboard");
-    } else {
-      alert(result.message || "Failed to create post");
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("country", country);
+    formData.append("dateOfVisit", dateOfVisit);
+    if (imageFile) formData.append("coverImage", imageFile);
+
+    try {
+      const res = await fetch("http://localhost:4000/api/posts", {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert("Post created!");
+        nav("/dashboard");
+      } else {
+        alert(result.message || "Failed to create post");
+      }
+    } catch (err) {
+      console.error("Error creating post:", err);
+      alert("Something went wrong");
     }
   };
 
@@ -101,7 +111,11 @@ const CreatePostPage = () => {
         <input type="file" accept="image/*" onChange={handleImageChange} />
         {preview && <img src={preview} alt="Preview" className="preview-img" />}
 
-        <button type="submit">Publish Post</button>
+        <div className="submit-wrapper">
+          <button className="submit" type="submit">
+            Publish Post
+          </button>
+        </div>
       </form>
     </div>
   );

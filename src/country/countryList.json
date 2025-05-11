@@ -1,27 +1,63 @@
 [
-    {
-      "name": "United Kingdom",
-      "flag": "https://flagcdn.com/gb.svg",
-      "currency": "GBP",
-      "capital": "London"
-    },
-    {
-      "name": "Sri Lanka",
-      "flag": "https://flagcdn.com/lk.svg",
-      "currency": "LKR",
-      "capital": "Colombo"
-    },
-    {
-      "name": "Japan",
-      "flag": "https://flagcdn.com/jp.svg",
-      "currency": "JPY",
-      "capital": "Tokyo"
-    },
-    {
-      "name": "France",
-      "flag": "https://flagcdn.com/fr.svg",
-      "currency": "EUR",
-      "capital": "Paris"
-    }
-  ]
+  {
+    "name": "United Kingdom",
+    "flag": "https://flagcdn.com/gb.svg",
+    "currency": "GBP",
+    "capital": "London"
+  },
+  {
+    "name": "Sri Lanka",
+    "flag": "https://flagcdn.com/lk.svg",
+    "currency": "LKR",
+    "capital": "Colombo"
+  },
+  {
+    "name": "Japan",
+    "flag": "https://flagcdn.com/jp.svg",
+    "currency": "JPY",
+    "capital": "Tokyo"
+  },
+  {
+    "name": "France",
+    "flag": "https://flagcdn.com/fr.svg",
+    "currency": "EUR",
+    "capital": "Paris"
+  },
+  {
+    "name": "United States",
+    "flag": "https://flagcdn.com/us.svg",
+    "currency": "USD",
+    "capital": "Washington, D.C."
+  },
+  {
+    "name": "India",
+    "flag": "https://flagcdn.com/in.svg",
+    "currency": "INR",
+    "capital": "New Delhi"
+  },
+  {
+    "name": "Germany",
+    "flag": "https://flagcdn.com/de.svg",
+    "currency": "EUR",
+    "capital": "Berlin"
+  },
+  {
+    "name": "Australia",
+    "flag": "https://flagcdn.com/au.svg",
+    "currency": "AUD",
+    "capital": "Canberra"
+  },
+  {
+    "name": "Canada",
+    "flag": "https://flagcdn.com/ca.svg",
+    "currency": "CAD",
+    "capital": "Ottawa"
+  },
+  {
+    "name": "Brazil",
+    "flag": "https://flagcdn.com/br.svg",
+    "currency": "BRL",
+    "capital": "Brasília"
+  }
+]
   

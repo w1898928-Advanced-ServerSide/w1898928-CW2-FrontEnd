@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { postService } from "../services/postService";
 import { followService } from "../services/followService";
 import PostCard from "../components/PostCard";
-import FollowButton from "../components/FollowButton";
 
 const DashboardPage = () => {
   const { user } = useAuth();
   const nav = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [suggestions, setSuggestions] = useState([]);
   const [followCounts, setFollowCounts] = useState({
     followers: 0,
     following: 0,
@@ -27,18 +25,12 @@ const DashboardPage = () => {
       if (result.success) setPosts(result.data);
     };
 
-    const fetchSuggestions = async () => {
-      const res = await followService.getSuggestions(user.userId);
-      if (res.success) setSuggestions(res.data);
-    };
-
     const fetchCounts = async () => {
       const res = await followService.getFollowCounts(user.userId);
       if (res.success) setFollowCounts(res.data);
     };
 
     fetchPosts();
-    fetchSuggestions();
     fetchCounts();
   }, [user, nav]);
 
@@ -65,19 +57,6 @@ const DashboardPage = () => {
         ))
       )}
 
-      <h3>Suggested Users to Follow</h3>
-      {suggestions.length === 0 ? (
-        <p>No suggestions at this time.</p>
-      ) : (
-        <ul className="user-list">
-          {suggestions.map((u) => (
-            <li key={u.id}>
-              {u.username}
-              <FollowButton targetUserId={u.id} />
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

@@ -34,11 +34,17 @@ const PostCard = ({ post, isProfile = false }) => {
     fetchReactions();
   }, [post.blogPostId, user]);
 
-  const handleEdit = () => {
+  const handleViewPost = () => {
+    nav(`/post/${post.blogPostId}`);
+  };
+
+  const handleEdit = (e) => {
+    e.stopPropagation();
     nav(`/edit/${post.blogPostId}`);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this post?")) {
       const res = await fetch(
         `http://localhost:4000/api/posts/${post.blogPostId}`,
@@ -57,7 +63,8 @@ const PostCard = ({ post, isProfile = false }) => {
     }
   };
 
-  const handleReaction = async (type) => {
+  const handleReaction = async (type, e) => {
+    e.stopPropagation();
     const res = await reactionService.toggleReaction(post.blogPostId, type);
     if (res.success) {
       setUserReaction((prev) => (prev === type ? null : type));
@@ -72,7 +79,11 @@ const PostCard = ({ post, isProfile = false }) => {
   };
 
   return (
-    <div className="post-card">
+    <div
+      className="post-card"
+      onClick={handleViewPost}
+      style={{ cursor: "pointer" }}
+    >
       {post.coverImage && (
         <img src={post.coverImage} alt={post.title} className="cover-img" />
       )}
@@ -83,11 +94,19 @@ const PostCard = ({ post, isProfile = false }) => {
       <div className="meta">
         <span>
           {post.country} | {post.dateOfVisit} | By{" "}
-          <a href={`/profile/${post.userId}`} className="profile-link">
+          <a
+            href={`/profile/${post.userId}`}
+            className="profile-link"
+            onClick={(e) => e.stopPropagation()}
+          >
             {post.username}
           </a>
         </span>
-        {!isOwner && <FollowButton targetUserId={post.userId} />}
+        {!isOwner && (
+          <span onClick={(e) => e.stopPropagation()}>
+            <FollowButton targetUserId={post.userId} />
+          </span>
+        )}
       </div>
 
       {selectedCountry && (
@@ -104,13 +123,13 @@ const PostCard = ({ post, isProfile = false }) => {
 
       <div className="reaction-bar">
         <button
-          onClick={() => handleReaction("like")}
+          onClick={(e) => handleReaction("like", e)}
           className={userReaction === "like" ? "active-reaction" : ""}
         >
           👍 {likes}
         </button>
         <button
-          onClick={() => handleReaction("dislike")}
+          onClick={(e) => handleReaction("dislike", e)}
           className={userReaction === "dislike" ? "active-reaction" : ""}
         >
           👎 {dislikes}

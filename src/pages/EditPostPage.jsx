@@ -9,24 +9,21 @@ const EditPostPage = () => {
   const { user } = useAuth();
   const nav = useNavigate();
 
-  const [post, setPost] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [country, setCountry] = useState("");
   const [dateOfVisit, setDateOfVisit] = useState("");
-  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
     const loadPost = async () => {
       const res = await postService.getPostById(id);
       if (res.success && res.data.userId === user.userId) {
-        setPost(res.data);
         setTitle(res.data.title);
         setContent(res.data.content);
         setCountry(res.data.country);
         setDateOfVisit(res.data.dateOfVisit);
-        setImage(res.data.coverImage);
         setPreview(res.data.coverImage);
       } else {
         alert("Access denied or post not found.");
@@ -38,22 +35,23 @@ const EditPostPage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setPreview(URL.createObjectURL(file));
-    const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result);
-    reader.readAsDataURL(file);
+    if (file) {
+      setImageFile(file);
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await postService.updatePost(
-      id,
-      title,
-      content,
-      country,
-      dateOfVisit,
-      image
-    );
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("country", country);
+    formData.append("dateOfVisit", dateOfVisit);
+    if (imageFile) formData.append("coverImage", imageFile);
+
+    const res = await postService.updatePost(id, formData);
     if (res.success) {
       alert("Post updated!");
       nav("/dashboard");

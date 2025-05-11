@@ -9,6 +9,7 @@ import EditPostPage from './pages/EditPostPage';
 import FollowersFollowingPage from './pages/FollowersFollowingPage';
 import UserProfilePage from './pages/UserProfilePage';
 import SearchPage from './pages/SearchPage';
+import PostDetailsPage from './pages/PostDetailsPage';
 import Navbar from './components/NavBar';
 import './styles.css';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/:type/:userId" element={<FollowersFollowingPage />} />
           <Route path="/profile/:userId" element={<UserProfilePage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/post/:id" element={<PostDetailsPage />} />
         </Routes>
       </Router>
     </AuthProvider>

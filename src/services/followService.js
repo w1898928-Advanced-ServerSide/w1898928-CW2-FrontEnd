@@ -1,5 +1,4 @@
-// src/services/followService.js
-import api from '../api';
+import api from './api';
 
 export const followService = {
   followUser: async (userId) => {

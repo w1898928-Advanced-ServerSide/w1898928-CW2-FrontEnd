@@ -1,5 +1,4 @@
-// src/services/reactionService.js
-import api from '../api';
+import api from './api';
 
 export const reactionService = {
   toggleReaction: async (postId, type) => {

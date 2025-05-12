@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import countryList from "../country/countryList.json";
+import { countryService } from "../services/countryService";
 
 const CreatePostPage = () => {
   const { user } = useAuth();
@@ -13,9 +13,14 @@ const CreatePostPage = () => {
   const [dateOfVisit, setDateOfVisit] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [countryList, setCountryList] = useState([]);
 
   useEffect(() => {
-    if (!user) nav("/login");
+    if (!user) {
+      nav("/login");
+    } else {
+      countryService.getAllCountries().then(setCountryList);
+    }
   }, [user, nav]);
 
   const handleImageChange = (e) => {

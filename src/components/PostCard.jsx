@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import countryList from "../country/countryList.json";
 import { reactionService } from "../services/reactionService";
+import { restCountryService } from "../services/countryService";
 import FollowButton from "./FollowButton";
 
 const PostCard = ({ post, isProfile = false }) => {
@@ -12,8 +12,8 @@ const PostCard = ({ post, isProfile = false }) => {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [userReaction, setUserReaction] = useState(null);
+  const [countryInfo, setCountryInfo] = useState(null);
 
-  const selectedCountry = countryList.find((c) => c.name === post.country);
   const isOwner = isProfile && user?.userId === post.userId;
 
   useEffect(() => {
@@ -31,12 +31,17 @@ const PostCard = ({ post, isProfile = false }) => {
         }
       }
     };
-    fetchReactions();
-  }, [post.blogPostId, user]);
 
-  const handleViewPost = () => {
-    nav(`/post/${post.blogPostId}`);
-  };
+    const fetchCountryInfo = async () => {
+      const info = await restCountryService.getCountryDetails(post.country);
+      setCountryInfo(info);
+    };
+
+    fetchReactions();
+    fetchCountryInfo();
+  }, [post.blogPostId, post.country, user]);
+
+  const handleViewPost = () => nav(`/post/${post.blogPostId}`);
 
   const handleEdit = (e) => {
     e.stopPropagation();
@@ -109,14 +114,14 @@ const PostCard = ({ post, isProfile = false }) => {
         )}
       </div>
 
-      {selectedCountry && (
+      {countryInfo && (
         <div className="country-info">
-          <img src={selectedCountry.flag} alt="flag" className="flag" />
+          <img src={countryInfo.flag} alt="flag" className="flag" />
           <p>
-            <strong>Capital:</strong> {selectedCountry.capital}
+            <strong>Capital:</strong> {countryInfo.capital}
           </p>
           <p>
-            <strong>Currency:</strong> {selectedCountry.currency}
+            <strong>Currency:</strong> {countryInfo.currency} 
           </p>
         </div>
       )}
@@ -128,7 +133,7 @@ const PostCard = ({ post, isProfile = false }) => {
         >
           <span
             className="material-icons"
-            style={{ color: userReaction === "like" ? "#dc354" : "#66" }}
+            style={{ color: userReaction === "like" ? "#dc3545" : "#666" }}
           >
             thumb_up
           </span>{" "}
@@ -140,7 +145,7 @@ const PostCard = ({ post, isProfile = false }) => {
         >
           <span
             className="material-icons"
-            style={{ color: userReaction === "dislike" ? "#dc354" : "#66" }}
+            style={{ color: userReaction === "dislike" ? "#dc3545" : "#666" }}
           >
             thumb_down
           </span>{" "}

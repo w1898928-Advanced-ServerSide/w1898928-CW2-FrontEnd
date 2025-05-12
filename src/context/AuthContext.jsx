@@ -29,10 +29,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await authService.logout();
-    setUser(null);
+    try {
+      await authService.logout();
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
-
+  
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {!loading && children}

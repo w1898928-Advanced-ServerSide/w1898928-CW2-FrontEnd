@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { postService } from "../services/postService";
-import countryList from "../country/countryList.json";
+import { countryService } from "../services/countryService";
 
 const EditPostPage = () => {
   const { id } = useParams();
@@ -15,8 +15,15 @@ const EditPostPage = () => {
   const [dateOfVisit, setDateOfVisit] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [countryList, setCountryList] = useState([]);
 
   useEffect(() => {
+    if (!user) return;
+
+    // Fetch countries
+    countryService.getAllCountries().then(setCountryList);
+
+    // Load post data
     const loadPost = async () => {
       const res = await postService.getPostById(id);
       if (res.success && res.data.userId === user.userId) {

@@ -10,7 +10,7 @@ const PostDetailsPage = () => {
   useEffect(() => {
     const fetchPostAndCountry = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/posts/${id}`);
+        const res = await fetch(`http://localhost:4002/api/posts/${id}`);
         const result = await res.json();
         if (result.success) {
           setPost(result.data);

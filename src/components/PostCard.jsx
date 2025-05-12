@@ -52,7 +52,7 @@ const PostCard = ({ post, isProfile = false }) => {
     e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this post?")) {
       const res = await fetch(
-        `http://localhost:4000/api/posts/${post.blogPostId}`,
+        `http://localhost:4002/api/posts/${post.blogPostId}`,
         {
           method: "DELETE",
           credentials: "include",

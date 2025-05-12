@@ -41,7 +41,7 @@ const CreatePostPage = () => {
     if (imageFile) formData.append("coverImage", imageFile);
 
     try {
-      const res = await fetch("http://localhost:4000/api/posts", {
+      const res = await fetch("http://localhost:4002/api/posts", {
         method: "POST",
         credentials: "include",
         body: formData,

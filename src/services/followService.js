@@ -1,4 +1,4 @@
-const API = 'http://localhost:4000/api/follow';
+const API = 'http://localhost:4002/api/follow';
 
 export const followService = {
   followUser: async (userId) => {

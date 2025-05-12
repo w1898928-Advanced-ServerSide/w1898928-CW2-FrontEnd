@@ -1,4 +1,4 @@
-const API = 'http://localhost:4000/api/auth';
+const API = 'http://localhost:4002/api/auth';
 
 export const authService = {
   login: async (username, password) => {

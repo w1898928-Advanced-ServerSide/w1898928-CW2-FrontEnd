@@ -1,4 +1,4 @@
-const API = 'http://localhost:4000/api/reactions';
+const API = 'http://localhost:4002/api/reactions';
 
 export const reactionService = {
   toggleReaction: async (postId, type) => {

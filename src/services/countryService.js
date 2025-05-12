@@ -1,5 +1,5 @@
   
-const API_URL = "http://localhost:5000/api/countries";
+const API_URL = "http://localhost:5001/api/countries";
 const API_KEY = "155977168c2b6758a3d72e6fb726ac34df833c271266140eab23b2583e7c55e0";
 
 export const countryService = {

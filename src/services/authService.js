@@ -1,38 +1,24 @@
-const API = 'http://localhost:4002/api/auth';
+// src/services/authService.js
+import api from '../api';
 
 export const authService = {
   login: async (username, password) => {
-    const res = await fetch(`${API}/login`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-    return await res.json();
+    const res = await api.post('/api/auth/login', { username, password });
+    return res.data;
   },
 
   register: async (username, email, password) => {
-    const res = await fetch(`${API}/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password }),
-    });
-    return await res.json();
+    const res = await api.post('/api/auth/register', { username, email, password });
+    return res.data;
   },
 
   getCurrentUser: async () => {
-    const res = await fetch(`${API}/me`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    return await res.json();
+    const res = await api.get('/api/auth/me');
+    return res.data;
   },
 
   logout: async () => {
-    const res = await fetch(`${API}/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    });
-    return await res.json();
-  }
+    const res = await api.post('/api/auth/logout');
+    return res.data;
+  },
 };

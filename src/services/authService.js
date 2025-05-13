@@ -2,8 +2,16 @@ import api from './api';
 
 export const authService = {
   login: async (username, password) => {
-    const res = await api.post('/api/auth/login', { username, password });
-    return res.data;
+    try {
+      const res = await api.post('/api/auth/login', { username, password });
+      return res.data;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        return { success: false, message: "Invalid username or password" };
+      } else {
+        return { success: false, message: "Login failed. Try again later." };
+      }
+    }
   },
 
   register: async (username, email, password) => {

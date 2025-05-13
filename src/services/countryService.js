@@ -1,6 +1,6 @@
   
 const API_URL = "http://localhost:5001/api/countries";
-const API_KEY = "https://restcountries.com/v3.1/name";
+const API_KEY = "https://restcountries.com/v3.1/all";
 
 export const countryService = {
     getAllCountries: async () => {
